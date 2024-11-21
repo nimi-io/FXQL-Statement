@@ -46,7 +46,7 @@ Follow these steps to set up the project locally:
 ## API Documentation
 
 ```bash
-  https://ios-api.optimusai.ai/api
+ https://fxql-statement.onrender.com/api
 ```
 
 ### Endpoints
