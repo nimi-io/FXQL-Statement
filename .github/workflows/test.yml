@@ -55,5 +55,5 @@ jobs:
 
       - name: Start application
         run: |
-          yarn start 
+          yarn start &
           sleep 60doc
