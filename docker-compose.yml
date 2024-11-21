@@ -1,0 +1,23 @@
+
+services:
+  nest-app:
+    build: .
+    container_name: ForeignExchange
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=production
+    command: >
+      /bin/sh -c "
+      yarn migration:run &&
+      yarn start:prod
+      "
+    networks:
+      - nest-network
+
+networks:
+  nest-network:
+    driver: bridge

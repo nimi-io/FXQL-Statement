@@ -1,0 +1,59 @@
+name: Testing Migration and App Running
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    env:
+      ENV: production
+      DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+      DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
+      DATABASE_USER: ${{ secrets.DATABASE_USER }}
+      DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+      DATABASE_NAME: postgres
+      SENTRY_DSN: https://e916ceb3b5663f1a5543fde3820c9560@o4508330045276160.ingest.de.sentry.io/4508330049077328
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+
+      - name: Create .env file
+        run: |
+          echo "ENV=production" > .env
+          echo "PRODUCTION_DB_DBHOST=${{ secrets.DATABASE_HOST }}" >> .env
+          echo "PRODUCTION_DB_DBPORT=${{ secrets.DATABASE_PORT }}" >> .env
+          echo "PRODUCTION_DB_DBUSER=${{ secrets.DATABASE_USER }}" >> .env
+          echo "PRODUCTION_DB_DBPASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> .env
+          echo "PRODUCTION_DB_DBNAME=postgres" >> .env
+          echo "SENTRY_DSN=https://e916ceb3b5663f1a5543fde3820c9560@o4508330045276160.ingest.de.sentry.io/4508330049077328" >> .env
+          echo "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> .env
+
+      - name: Install dependencies using Yarn
+        run: yarn install
+
+      - name: Run migrations
+        run: yarn migration:run
+
+    #   - name: Run tests
+        # run: yarn test
+      - name: Build application
+        run: yarn build
+    
+      - name: Start application
+        run: |
+          yarn start &
+          sleep 60doc
