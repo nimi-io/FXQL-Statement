@@ -48,12 +48,12 @@ jobs:
       - name: Run migrations
         run: yarn migration:run
 
-    #   - name: Run tests
-        # run: yarn test
+      #   - name: Run tests
+      # run: yarn test
       - name: Build application
         run: yarn build
-    
+
       - name: Start application
         run: |
-          yarn start &
+          yarn start 
           sleep 60doc
