@@ -53,7 +53,7 @@ jobs:
       - name: Build application
         run: yarn build
 
-      - name: Start application
+      - name: Start Application and Wait
         run: |
           yarn start &
-          sleep 60doc
+          sleep 60
