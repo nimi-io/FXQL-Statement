@@ -45,6 +45,10 @@ Follow these steps to set up the project locally:
 
 ## API Documentation
 
+```bash
+  https://ios-api.optimusai.ai/api
+```
+
 ### Endpoints
 
 #### Health Check
@@ -82,6 +86,7 @@ Follow these steps to set up the project locally:
     SELL 0.90
     CAP 10000
     }
+    ```
 
 EUR-JPY {
 BUY 145.20
@@ -95,7 +100,8 @@ SELL 0.0023
 CAP 2000000
 }"
 }
-```
+
+````
 
 - **Responses**:
   - `200`: The list of FX bulk entries was successfully retrieved.
@@ -158,7 +164,7 @@ The application requires the following environment variables to function:
 | `DATABASE_PASSWORD` | Password for the database           | `password`                          |
 | `DATABASE_NAME`     | Name of the database                | `fxql_api`                          |
 | `SENTRY_DSN`        | Sentry DSN for error logging        | `https://<key>@sentry.io/<project>` |
-              
+
 
 ### Example .env file
 
@@ -171,7 +177,7 @@ DATABASE_PASSWORD=password
 DATABASE_NAME=fxql_api
 SENTRY_DSN=https://<key>@sentry.io/<project>
 JWT_SECRET=your-secret-key
-```
+````
 
 ---
 
